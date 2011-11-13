@@ -1,0 +1,37 @@
+name: Insurance
+main: me.arboriginal.Insurance.Insurance
+version: 1.0
+
+commands:
+    insurance-calculate:
+        description: Calculate the prime for the given player (sender if not specify)
+        usage: /insurance-calculate [playername]
+
+    insurance-reload:
+        description: Reload config from disk.
+        usage: /insurance-reload
+
+permissions:
+    Insurance.*:
+        description: Gives access to all Insurance commands
+        children:
+            Insurance.receivePrime: true
+            Insurance.calculatePrime: true
+            Insurance.calculateMyPrime: true
+            Insurance.reload: true
+
+    Insurance.receivePrime:
+        description: Receive an insurance prime when the player dies.
+        default: op
+
+    Insurance.calculatePrime:
+        description: Display the prime's amount of the given player if he dies now.
+        default: op
+
+    Insurance.calculateMyPrime:
+        description: Display your prime's amount if you die now.
+        default: op
+
+    Insurance.reload:
+        description: Update plugin config from files.
+        default: op

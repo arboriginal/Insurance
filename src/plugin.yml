@@ -1,19 +1,21 @@
 name: Insurance
 main: me.arboriginal.Insurance.Insurance
-version: 1.0
+version: 1.1
 
 commands:
     insurance-calculate:
         description: Calculate the prime for the given player (sender if not specify)
         usage: /insurance-calculate [playername]
+        aliases: [icalc]
 
     insurance-reload:
         description: Reload config from disk.
         usage: /insurance-reload
+        aliases: [ireload]
 
 permissions:
     Insurance.*:
-        description: Gives access to all Insurance commands
+        description: Gives access to all Insurance plugin commands
         children:
             Insurance.receivePrime: true
             Insurance.calculatePrime: true

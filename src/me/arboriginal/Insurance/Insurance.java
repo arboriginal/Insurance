@@ -329,13 +329,13 @@ public class Insurance extends JavaPlugin {
 
   private float calculateCondition(ItemStack stack) {
     if (!config.getBoolean("Insurance.consider_condition")) {
-      return 100;
+      return 1;
     }
 
     int maxDurability = getMaxDurability(stack.getType());
 
     if (maxDurability == 0) {
-      return 100;
+      return 1;
     }
 
     return 1 - stack.getDurability() / (float) maxDurability;

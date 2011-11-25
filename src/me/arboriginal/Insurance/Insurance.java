@@ -137,8 +137,12 @@ public class Insurance extends JavaPlugin {
   }
 
   private float calculatePrime(Player player) {
+    return calculateContentPrime(player.getInventory().getContents())
+        + calculateContentPrime(player.getInventory().getArmorContents());
+  }
+
+  private float calculateContentPrime(ItemStack[] stuff) {
     float amount = 0;
-    ItemStack[] stuff = player.getInventory().getContents();
 
     if (stuff.length > 0) {
       for (int i = 0; i < stuff.length; i++) {

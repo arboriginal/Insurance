@@ -1,6 +1,6 @@
 name: Insurance
 main: me.arboriginal.Insurance.Insurance
-version: 1.11
+version: 1.12
 
 commands:
     insurance-calculate:

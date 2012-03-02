@@ -1,6 +1,10 @@
 name: Insurance
+description: Insurance lets you configure allowances for each items, players receive money (based on their stuff) when they die.
+version: 2.0
+author: arboriginal
+website: http://dev.bukkit.org/server-mods/insurance/
+dev-url: https://github.com/arboriginal/Insurance
 main: me.arboriginal.Insurance.Insurance
-version: 1.12
 
 commands:
     insurance-calculate:

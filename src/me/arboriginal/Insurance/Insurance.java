@@ -71,17 +71,14 @@ public class Insurance extends JavaPlugin implements Listener {
 	public void onEntityDeath(PlayerDeathEvent event) {
 		Player player = (Player) event.getEntity();
 
-		if (player.hasPermission("Insurance.receivePrime")) {
-			List<ItemStack> stuff = event.getDrops();
+		if (!player.hasPermission("Insurance.receivePrime")) return;
+		List<ItemStack> stuff = event.getDrops();
 
-			if (stuff.size() > 0) {
-				float prime = readStuff(stuff, player.getName());
+		if (stuff.size() <= 0) return;
+		float prime = readStuff(stuff, player.getName());
 
-				if (prime > 0) {
-					payPlayer(player, prime);
-				}
-			}
-		}
+		if (prime <= 0) return;
+		payPlayer(player, prime);
 	}
 
 	// -----------------------------------------------------------------------------------------------
@@ -160,8 +157,7 @@ public class Insurance extends JavaPlugin implements Listener {
 	}
 
 	private float calculatePrime(Player player) {
-		return calculateContentPrime(player.getInventory().getContents())
-		    + calculateContentPrime(player.getInventory().getArmorContents());
+		return calculateContentPrime(player.getInventory().getContents()) + calculateContentPrime(player.getInventory().getArmorContents());
 	}
 
 	private float calculateContentPrime(ItemStack[] stuff) {
@@ -187,19 +183,18 @@ public class Insurance extends JavaPlugin implements Listener {
 	private float getItemPrice(ItemStack stack) {
 		float finalPrice = 0;
 
-		if (stack != null) {
-			String key = "Insurance.primes." + stack.getType();
+		if (stack == null) return finalPrice;
+		String key = "Insurance.primes." + stack.getType();
 
-			if (config.contains(key)) {
-				Object price = config.get(key);
+		if (config.contains(key)) {
+			Object price = config.get(key);
 
-				if (!(price instanceof Double)) {
-					key += "." + getSubMaterials(stack.getType()).get(stack.getData().getData());
-					price = config.getDouble(key);
-				}
-
-				finalPrice += (Double) price * calculateCondition(stack);
+			if (!(price instanceof Double)) {
+				key += "." + getSubMaterials(stack.getType()).get(stack.getData().getData());
+				price = config.getDouble(key);
 			}
+
+			finalPrice += (Double) price * calculateCondition(stack);
 		}
 
 		return finalPrice;
@@ -229,9 +224,7 @@ public class Insurance extends JavaPlugin implements Listener {
 			Double defaultValue = 0.0;
 			List<String> subMaterials = getSubMaterials(material);
 
-			if (subMaterials.size() == 0) {
-				edited = checkConfigValue("Insurance.primes." + material, defaultValue) || edited;
-			}
+			if (subMaterials.size() == 0) edited = checkConfigValue("Insurance.primes." + material, defaultValue) || edited;
 			else {
 				if (config.contains("Insurance.primes." + material)) {
 					Object value = config.get("Insurance.primes." + material);
